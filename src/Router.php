@@ -30,7 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim;
+namespace src;
 
 /**
  * Router
@@ -79,7 +79,7 @@ class Router
 
     /**
      * Get Current Route object or the first matched one if matching has been performed
-     * @return \Slim\Route|null
+     * @return \src\Route|null
      */
     public function getCurrentRoute()
     {
@@ -121,9 +121,9 @@ class Router
 
     /**
      * Add a route object to the router
-     * @param  \Slim\Route     $route      The Slim Route
+     * @param  \src\Route     $route      The Slim Route
      */
-    public function map(\Slim\Route $route)
+    public function map(\src\Route $route)
     {
         list($groupPattern, $groupMiddleware) = $this->processGroups();
 
@@ -199,10 +199,10 @@ class Router
     /**
      * Add named route
      * @param  string            $name   The route name
-     * @param  \Slim\Route       $route  The route object
+     * @param  \src\Route       $route  The route object
      * @throws \RuntimeException         If a named route already exists with the same name
      */
-    public function addNamedRoute($name, \Slim\Route $route)
+    public function addNamedRoute($name, \src\Route $route)
     {
         if ($this->hasNamedRoute($name)) {
             throw new \RuntimeException('Named route already exists with name: ' . $name);
@@ -225,7 +225,7 @@ class Router
     /**
      * Get named route
      * @param  string           $name
-     * @return \Slim\Route|null
+     * @return \src\Route|null
      */
     public function getNamedRoute($name)
     {
