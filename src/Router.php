@@ -187,10 +187,16 @@ class Router
             throw new \RuntimeException('Named route not found for name: ' . $name);
         }
         $search = array();
-        foreach ($params as $key => $value) {
+        foreach ($params as $key => &$value) {
             $search[] = '#:' . preg_quote($key, '#') . '\+?(?!\w)#';
+
+            // fix for wildcard template @see http://docs.slimframework.com/routing/params/#wildcard-route-parameters
+            if (is_array($value)) {
+                $value = implode('/', $value);
+            }
         }
-        $pattern = preg_replace($search, $params, $this->getNamedRoute($name)->getPattern());
+        $routePattern = $this->getNamedRoute($name)->getPattern();
+        $pattern = preg_replace($search, $params, $routePattern);
 
         //Remove remnants of unpopulated, trailing optional pattern segments, escaped special characters
         return preg_replace('#\(/?:.+\)|\(|\)|\\\\#', '', $pattern);
